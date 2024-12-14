@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "parcabul.com.tr",
+        hostname: "b2b.parcabul.com.tr",
       }
     ]   
   }
