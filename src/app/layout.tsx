@@ -5,7 +5,7 @@ import QueryProvider from "@/providers/query-provider"
 import { ThemeProvider } from "@/providers/theme-provider"
 import { Navbar } from "@/components/layout/navbar"
 import { cn } from "@/lib/utils"
-import { Loader2, Phone, Mail, MapPin, Facebook, Twitter, Instagram } from "lucide-react"
+import { Phone, Mail, MapPin, Facebook, Twitter, Instagram } from "lucide-react"
 import Link from "next/link"
 
 const inter = Inter({
@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className={cn(
         inter.variable,
-        "min-h-screen bg-background font-sans antialiased",        
+        "min-h-screen bg-background font-sans antialiased",
         "selection:bg-primary/20 selection:text-primary"
       )}>
         <ThemeProvider>
@@ -98,23 +98,23 @@ export default function RootLayout({
                   <div>
                     <h4 className="text-md font-semibold mb-4">Follow Us</h4>
                     <div className="flex space-x-4">
-                      <Link 
-                        href="https://facebook.com" 
-                        target="_blank" 
+                      <Link
+                        href="https://facebook.com"
+                        target="_blank"
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
                         <Facebook className="h-5 w-5" />
                       </Link>
-                      <Link 
-                        href="https://twitter.com" 
-                        target="_blank" 
+                      <Link
+                        href="https://twitter.com"
+                        target="_blank"
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
                         <Twitter className="h-5 w-5" />
                       </Link>
-                      <Link 
-                        href="https://instagram.com" 
-                        target="_blank" 
+                      <Link
+                        href="https://instagram.com"
+                        target="_blank"
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
                         <Instagram className="h-5 w-5" />
@@ -122,7 +122,7 @@ export default function RootLayout({
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Copyright */}
                 <div className="border-t py-6 text-center text-sm text-muted-foreground">
                   <p>&copy; {new Date().getFullYear()} Auto Parts. All rights reserved.</p>
