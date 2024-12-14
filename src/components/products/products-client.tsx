@@ -24,7 +24,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Search, Package2, ArrowLeft, ArrowRight, ShoppingCart } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
+import Image from 'next/image'
 
 interface Product {
   id: string
@@ -50,7 +50,7 @@ interface ProductsResponse {
 
 export function ProductsClient() {
   const [mounted, setMounted] = useState(false)
-    const [cart, setCart] = useState<any[]>([])
+  const [cart, setCart] = useState<any[]>([])
   const [filters, setFilters] = useState({
     search: '',
     manufacturer: 'all',
@@ -248,21 +248,23 @@ export function ProductsClient() {
               
               <CardHeader className="flex flex-row items-center space-x-4">
                 {product.image && (
-                  <div className="w-24 h-24 flex-shrink-0">
-                    <img 
+                  <div className="w-24 h-24 flex-shrink-0 relative">
+                    <Image 
                       src={product.image} 
                       alt={product.name} 
-                      className="w-full h-full object-cover rounded-lg" 
+                      fill
+                      className="object-cover rounded-lg" 
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 )}
                 <CardTitle className="space-y-2">
                   <span className="text-lg leading-tight line-clamp-2">{product.name}</span>
                   <Badge 
-                    variant={product.inStock ? "default" : "secondary"}
+                    variant={product.stock ? "default" : "secondary"}
                     className={cn(
                       "transition-colors",
-                      product.inStock ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" : ""
+                      product.stock ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" : ""
                     )}
                   >
                     {product.stock ? "In Stock" : "Out of Stock"}
@@ -310,7 +312,7 @@ export function ProductsClient() {
                   variant="outline" 
                   size="icon" 
                   onClick={() => addToCart(product)}
-                  disabled={!product.inStock}
+                  disabled={!product.stock}
                   className="ml-2"
                 >
                   <ShoppingCart className="h-4 w-4" />

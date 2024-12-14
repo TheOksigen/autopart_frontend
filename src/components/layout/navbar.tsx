@@ -40,7 +40,7 @@ export function Navbar() {
     return () => {
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [])
+  }, [theme, resolvedTheme])
 
   const handleLogout = () => {
     localStorage.removeItem('token')

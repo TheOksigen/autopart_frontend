@@ -18,17 +18,6 @@ export const metadata: Metadata = {
   description: "Find high-quality auto parts from trusted manufacturers",
 }
 
-function RootLoading() {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-background">
-      <div className="text-center">
-        <Loader2 className="h-12 w-12 animate-spin mx-auto text-primary/60" />
-        <p className="mt-4 text-lg text-muted-foreground">Loading...</p>
-      </div>
-    </div>
-  )
-}
-
 export default function RootLayout({
   children,
 }: {
