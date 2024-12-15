@@ -60,8 +60,7 @@ export function ProductsClient() {
 
   useEffect(() => {
     setMounted(true)
-    // Load cart from localStorage
-    const savedCart = localStorage.getItem('cart')
+        const savedCart = localStorage.getItem('cart')
     if (savedCart) {
       setCart(JSON.parse(savedCart))
     }
@@ -92,9 +91,10 @@ export function ProductsClient() {
 
   const { data: manufacturersData } = useQuery({
     queryKey: ['manufacturers'],
-    queryFn: fetchManufacturers,
+    queryFn: ()=> fetchManufacturers(localStorage.getItem('token') || ''), 
     enabled: mounted,
   })
+  
 
   const { 
     data: productsData, 
@@ -104,15 +104,13 @@ export function ProductsClient() {
     queryKey: ['products', filters],
     queryFn: () => fetchProducts({
       page: filters.page,
-      limit: 40,
+      limit: 42,
       search: filters.search || undefined,
       manufacturer: filters.manufacturer === 'all' ? undefined : filters.manufacturer,
       inStock: filters.inStock === 'all' ? undefined : filters.inStock === 'true',
-    }),
+    }, localStorage.getItem('token') || ''),
     enabled: mounted,
   })
-
-  console.log(productsData?.products)
 
   if (!mounted) {
     return (
@@ -271,7 +269,7 @@ export function ProductsClient() {
                   </Badge>
                 </CardTitle>
               </CardHeader>
-              
+              {product.manufacturer}
               <CardContent className="space-y-3">
                 <div className="space-y-2 text-sm">
                   <p className="flex items-center gap-2">

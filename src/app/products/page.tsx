@@ -1,9 +1,13 @@
+'use client'
+
 import { Suspense } from 'react'
 import { ProductsClient } from "@/components/products/products-client"
 import { Loader2 } from "lucide-react"
+import { useProtectedRoute } from '@/lib/auth'
+// import bg from '../../../public/bg.jpg'
 
 function ProductsLoading() {
-  return (
+  return (  
     <div className="flex min-h-[400px] w-full items-center justify-center">
       <Loader2 className="h-12 w-12 animate-spin text-primary/60" />
     </div>
@@ -11,6 +15,9 @@ function ProductsLoading() {
 }
 
 export default function ProductsPage() {
+  // Protect this route
+  useProtectedRoute()
+
   return (
     <div className="pb-16 pt-10 space-y-10">
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-primary/5 via-background to-background pt-14 pb-8">

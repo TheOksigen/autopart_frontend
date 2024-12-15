@@ -6,29 +6,22 @@ import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart, Sun, Moon } from 'lucide-react'
+import { logout, isAuthenticated } from '@/lib/auth'
 
 export function Navbar() {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [cartItems, setCartItems] = useState<any[]>([])
 
   useEffect(() => {
     setMounted(true)
-    console.log('Initial theme:', theme)
-    console.log('Resolved theme:', resolvedTheme)
-
-    const token = localStorage.getItem('token')
-    setIsLoggedIn(!!token)
-
-    // Load cart from localStorage
+    
     const savedCart = localStorage.getItem('cart')
     if (savedCart) {
       setCartItems(JSON.parse(savedCart))
     }
 
-    // Listen for cart changes in localStorage
     const handleStorageChange = () => {
       const updatedCart = localStorage.getItem('cart')
       if (updatedCart) {
@@ -41,12 +34,6 @@ export function Navbar() {
       window.removeEventListener('storage', handleStorageChange)
     }
   }, [theme, resolvedTheme])
-
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    setIsLoggedIn(false)
-    router.push('/login')
-  }
 
   const toggleTheme = () => {
     console.log('Current theme before toggle:', theme)
@@ -75,9 +62,9 @@ export function Navbar() {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <Button 
-            variant="outline" 
-            size="icon" 
+          <Button
+            variant="outline"
+            size="icon"
             onClick={toggleTheme}
             aria-label="Toggle Theme"
             className="w-10 h-10 flex items-center justify-center"
@@ -102,27 +89,9 @@ export function Navbar() {
             </Link>
           </Button>
 
-          {isLoggedIn ? (
-            <Button
-              variant="ghost"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
-          ) : (
-            <>
-              <Button variant="ghost" asChild>
-                <Link href="/login">
-                  Login
-                </Link>
-              </Button>
-              <Button asChild>
-                <Link href="/register">
-                  Register
-                </Link>
-              </Button>
-            </>
-          )}
+          {isAuthenticated() 
+            ? (<Button onClick={logout}>Logout</Button>) 
+            : (<Button asChild><Link href="/login">Login</Link></Button>)}
         </div>
       </div>
     </header>

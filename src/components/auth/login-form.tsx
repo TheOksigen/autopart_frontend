@@ -28,9 +28,9 @@ export function LoginForm() {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
+    onSuccess: (data) => {      
       localStorage.setItem('token', data.token)
-      router.push('/products')
+      router.replace('/products')
     },
     onError: (error: Error) => {
       setLoginError(error.message || 'Login failed. Please try again.')
