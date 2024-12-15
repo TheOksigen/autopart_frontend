@@ -1,15 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, use } from 'react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart, Sun, Moon } from 'lucide-react'
 import { logout, isAuthenticated } from '@/lib/auth'
 
-export function Navbar() {
-  const router = useRouter()
+
+export function Navbar() {  
+  const authState = use(isAuthenticated())
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [cartItems, setCartItems] = useState<any[]>([])
@@ -89,7 +89,7 @@ export function Navbar() {
             </Link>
           </Button>
 
-          {isAuthenticated() 
+          { authState
             ? (<Button onClick={logout}>Logout</Button>) 
             : (<Button asChild><Link href="/login">Login</Link></Button>)}
         </div>

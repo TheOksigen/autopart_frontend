@@ -7,13 +7,13 @@ export const isAuthenticated = async (): Promise<boolean> => {
   
     if (!token) return false
 
-  try {
+    try {
         await verify(token)
-    return true
-  } catch {
-        localStorage.removeItem('token')
-    return false
-  }
+      return true
+    } catch {
+          localStorage.removeItem('token')
+      return false
+    }
 }
 
 export const useProtectedRoute = (allowedRoutes: string[] = ['/products']) => {
